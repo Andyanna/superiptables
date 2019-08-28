@@ -1,3 +1,6 @@
+#! /bin/bash
+
+
 function install_fix(){
      #删除安装环境
      echo "开始"
