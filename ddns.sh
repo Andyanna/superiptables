@@ -78,11 +78,11 @@ do
         iptables -t nat  -D PREROUTING $index
         echo 清除对应的POSTROUTING规则 
 done        
-arr3=(`iptables -L PREROUTING -n -t nat --line-number |grep SNAT|grep "dpts:$port1"|sort -r|awk '{print $1}'|tr " " ":"|tr "\n" " "`)
-for cell2 in ${arr3[@]}  # cell= 1:tcp:to:8.8.8.8:543
+ar1=(`iptables -L PREROUTING -n -t nat --line-number |grep SNAT|grep "dpts:$port1"|sort -r|awk '{print $1}'|tr " " ":"|tr "\n" " "`)
+for cell1 in ${ar1[@]}  # cell= 1:tcp:to:8.8.8.8:543
 do
-        arr4=(`echo $cell2|tr ":" " "`)  #arr2=(1 tcp to 8.8.8.8 543)
-       toRmIndexs=${arr4[0]}
+        ar2=(`echo $cell1|tr ":" " "`)  #arr2=(1 tcp to 8.8.8.8 543)
+       toRmIndexs=${ar2[0]}
 
         
         
