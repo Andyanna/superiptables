@@ -6,11 +6,7 @@
 port1=这是起始端口
 port2=这是终止端口
 mubiao=这是域名
-tempFile=$4
-if [ "$4" = "" ];then
-    tempFile=iplog
-fi
-
+#tempFile=iplog
 
 
 red="\033[31m"
@@ -45,7 +41,7 @@ do
 done
 iptables --policy FORWARD ACCEPT
 
-lastip=$(cat /root/$tempFile 2> /dev/null)
+lastip=$(cat /root/iplog.log 2> /dev/null)
 if [ "$lastip" = "$newmubiao" ]; then
     echo 目标域名解析IP未发生变化，等待下一次检索
    
@@ -72,7 +68,7 @@ fi
 
 echo 上一次查询ip: $lastip
 echo 最新ip: $newmubiao
-echo $newmubiao > /root/$tempFile
+echo $newmubiao > /root/iplog.log
 
 
 ## 获取本机地址
