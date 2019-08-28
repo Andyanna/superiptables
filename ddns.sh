@@ -66,7 +66,7 @@ echo 本地ip: $local
 echo 有更新，正在重新设置iptables转发规则
 
 #删除旧的中转规则
-arr1=(`iptables -L PREROUTING -n -t nat --line-number |grep DNAT|grep "dpts:$port1 "|sort -r|awk '{print $1,$3,$9}'|tr " " ":"|tr "\n" " "`)
+arr1=(`iptables -L PREROUTING -n -t nat --line-number |grep DNAT|grep "dpts:$port1"|sort -r|awk '{print $1,$3,$9}'|tr " " ":"|tr "\n" " "`)
 for cell in ${arr1[@]}  # cell= 1:tcp:to:8.8.8.8:543
 do
         arr2=(`echo $cell|tr ":" " "`)  #arr2=(1 tcp to 8.8.8.8 543)
@@ -78,12 +78,12 @@ do
         iptables -t nat  -D PREROUTING $index
         echo 清除对应的POSTROUTING规则 
         
-arr3=(`iptables -L PREROUTING -n -t nat --line-number |grep SNAT|grep "dpts:$port1 "|sort -r|awk '{print $1,$3,$9}'|tr " " ":"|tr "\n" " "`)
-for cell2 in ${arr3[@]}  # cell= 1:tcp:to:8.8.8.8:543
-do
-        arr4=(`echo $cell2|tr ":" " "`)  #arr2=(1 tcp to 8.8.8.8 543)
-        toRmIndexs=${arr4[0]}
-
+arr3=(`iptables -L PREROUTING -n -t nat --line-number |grep SNAT|grep "dpts:$port1"|sort -r|awk '{print $1,$3,$9}'|tr " " ":"|tr "\n" " "`)
+#for cell2 in ${arr3[@]}  # cell= 1:tcp:to:8.8.8.8:543
+#do
+       # arr4=(`echo $cell2|tr ":" " "`)  #arr2=(1 tcp to 8.8.8.8 543)
+       # toRmIndexs=${arr4[0]}
+echo "$arr3"
         
         
        # toRmIndexs=(`iptables -L POSTROUTING -n -t nat --line-number|grep $targetIP|grep $port1:$port2|grep $proto|awk  '{print $1}'|sort -r|tr "\n" " "`)
