@@ -16,7 +16,7 @@ fi
 red="\033[31m"
 black="\033[0m"
 
-
+echo ""
 echo superiptables日志
 echo 时间：$(date)
 
@@ -61,6 +61,7 @@ local=$(ip -o -4 addr list | grep -Ev '\s(docker|lo)' | awk '{print $4}' | cut -
 if [ "${local}" = "" ]; then
 	local=$(ip -o -4 addr list | grep -Ev '\s(docker|lo)' | awk '{print $4}' | cut -d/ -f1 )
 fi
+echo ""
 echo 本地ip: $local
 echo 有更新，正在重新设置iptables转发规则
 
@@ -73,10 +74,10 @@ do
         proto=${arr2[1]}
         targetIP=${arr2[3]}
         targetPort=${arr2[4]}
-        echo 清除本机$port1:$port2端口到$targetIP:$targetPort的${proto}PREROUTING转发规则$index
+        echo 清除本机$port1:$port2端口到$targetIP的${proto} PREROUTING转发规则 $index
         iptables -t nat  -D PREROUTING $index
         echo 清除对应的POSTROUTING规则
-        toRmIndexs=(`iptables -L POSTROUTING -n -t nat --line-number|grep $targetIP|grep $targetPort|grep $proto|awk  '{print $1}'|sort -r|tr "\n" " "`)
+        toRmIndexs=(`iptables -L POSTROUTING -n -t nat --line-number|grep $targetIP|grep $port1:$port2|grep $proto|awk  '{print $1}'|sort -r|tr "\n" " "`)
         for cell1 in ${toRmIndexs[@]} 
         do
             iptables -t nat  -D POSTROUTING $cell1

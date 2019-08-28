@@ -187,9 +187,8 @@ mysqlPWD=`date +%s%N | md5sum | head -c 20 ; echo`;
 
 
 
-check_system
 sleep 1
-
+clear
 echo "superiptables版本:20190112 基于开源代码制作"
 echo "1. >>>安装一键多端口中转 "
 echo "2. >>>安装一键单端口中转 "
