@@ -127,18 +127,24 @@ sed -i 's/'这是域名'/'${muhost}'/g' "/usr/local/ddns.sh"
 #   exit 1;
 #fi
 
-IPrecordfile=${port1}:${port2}[${mubiao}:${port1}:${port2}]
+#IPrecordfile=${port1}:${port2}[${mubiao}:${port1}:${port2}]
 # 开机强制刷新一次
 chmod +x /etc/rc.d/rc.local
-echo "rm -f /root/$IPrecordfile" >> /etc/rc.d/rc.local
+#echo "rm -f /root/$IPrecordfile" >> /etc/rc.d/rc.local
 # 替换下面的port1 port2 mubiao
-echo "/bin/bash /usr/local/ddns.sh $port1:$port2 $mubiao $IPrecordfile &>> /root/iptables${port1}:${port2}.log" >> /etc/rc.d/rc.local
-chmod +x /etc/rc.d/rc.local
+#echo "/bin/bash /usr/local/ddns.sh $port1:$port2 $mubiao $IPrecordfile &>> /root/iptables${port1}:${port2}.log" >> /etc/rc.d/rc.local
+
 # 定时任务，每分钟检查一下
-echo "* * * * * root /usr/local/ddns.sh $port1:$port2 $mubiao $IPrecordfile &>> /root/iptables${port1}:${port2}.log" >> /etc/crontab
-cd
-rm -f /root/$IPrecordfile
-bash /usr/local/ddns.sh $port1:$port2 $mubiao $IPrecordfile &>> /root/iptables${port1}:${port2}.log
+#echo "* * * * * root /usr/local/ddns.sh $port1:$port2 $mubiao $IPrecordfile &>> /root/iptables${port1}:${port2}.log" >> /etc/crontab
+
+
+
+#rm -f /root/$IPrecordfile
+#bash /usr/local/ddns.sh $port1:$port2 $mubiao $IPrecordfile &>> /root/iptables${port1}:${port2}.log
+echo "/bin/bash /usr/local/ddns.sh &>> /root/iptables${port1}:${port2}.log" >> /etc/rc.d/rc.local
+chmod +x /etc/rc.d/rc.local
+echo "* * * * * root /usr/local/ddns.sh &>> /root/iptables${port1}:${port2}.log" >> /etc/crontab
+bash /usr/local/ddns.sh &>> /root/iptables${port1}:${port2}.log
 echo "成功"
 echo "现在每分钟都会检查ddns的ip是否改变，并自动更新"
     
