@@ -111,7 +111,7 @@ chmod +x /usr/local/ddns.sh
 echo "组件下载完成"
 sed -i 's/'这是起始端口'/'${port1}'/g' "/usr/local/ddns.sh"
 sed -i 's/'这是终止端口'/'${port2}'/g' "/usr/local/ddns.sh"
-sed -i 's/'这是域名'/'${mubiao}'/g' "/usr/local/ddns.sh"
+sed -i 's/'这是域名'/'${muhost}'/g' "/usr/local/ddns.sh"
 
 
 # 判断端口是否为数字
