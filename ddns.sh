@@ -77,10 +77,18 @@ do
         echo 清除本机$port1:$port2端口到$targetIP的${proto} PREROUTING转发规则 $index
         iptables -t nat  -D PREROUTING $index
         echo 清除对应的POSTROUTING规则
-        toRmIndexs=(`iptables -L POSTROUTING -n -t nat --line-number|grep $targetIP|grep $port1:$port2|grep $proto|awk  '{print $1}'|sort -r|tr "\n" " "`)
-        for cell1 in ${toRmIndexs[@]} 
-        do
-            iptables -t nat  -D POSTROUTING $cell1
+        arr3=(`iptables -L PREROUTING -n -t nat --line-number |grep DNAT|grep "dpts:$port1:$port2 "|sort -r|awk '{print $1,$3,$9}'|tr " " ":"|tr "\n" " "`)
+for cell2 in ${arr3[@]}  # cell= 1:tcp:to:8.8.8.8:543
+do
+        arr4=(`echo $cell2|tr ":" " "`)  #arr2=(1 tcp to 8.8.8.8 543)
+        toRmIndexs=${arr4[0]}
+
+        
+        
+       # toRmIndexs=(`iptables -L POSTROUTING -n -t nat --line-number|grep $targetIP|grep $port1:$port2|grep $proto|awk  '{print $1}'|sort -r|tr "\n" " "`)
+      #  for cell2 in ${toRmIndexs[@]} 
+     #   do
+            iptables -t nat  -D POSTROUTING $toRmIndexs
         done
 done
 
