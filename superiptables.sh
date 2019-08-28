@@ -60,9 +60,12 @@ elif [[ $installway == "3" ]]
 then
 install_3
 else 
-echo '输入错误，请重新运行脚本';
+echo '输入错误，请重新运行脚本'
 exit 0;
-fi;
+fi
+
+
+
 function install_1(){
 echo -n "请问是否需要安装自动ddns组件？回复y/n:" ;read ifddns
 
@@ -205,5 +208,5 @@ fi
 }
 
 function install_2(){
-     
+     echo ""
 }
