@@ -5,6 +5,11 @@
 
 function install_1(){
 echo -n "请问是否需要安装自动ddns组件？回复y/n:" ;read ifddns
+if [ "$ifddns" = "y" ];then
+    echo -e "确认安装自动ddns组件"
+    else
+    echo "不安装自动ddns组件"
+fi
 
 red="\033[31m"
 black="\033[0m"
