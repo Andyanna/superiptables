@@ -22,8 +22,16 @@ if [ $? -ne 0 ]; then
     echo -e "net.ipv4.ip_forward=1" >> /etc/sysctl.conf && sysctl -p
 fi
 
+name=$mubiao
+#if [ -z $1 ];then
+#echo Usage:$0 dns
+#exit 1
+#fi
+newmubiao=(`dig $name|grep ^$name|awk '{print $5}'`)
 
-    newmubiao=$(host -t a  $mubiao|grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
+echo "最新查询目标的IP:$newmubiao"
+
+#    newmubiao=$(host -t a  $mubiao|grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
     if [ "$newmubiao" = "" ];then
         echo -e "无法解析域名，请填写正确的域名！"
         exit 1
@@ -42,9 +50,11 @@ done
 iptables --policy FORWARD ACCEPT
 
 lastip=$(cat /root/iplog.log 2> /dev/null)
+echo "上次IP:$lastip"
 if [ "$lastip" = "$newmubiao" ]; then
-    echo 目标域名解析IP未发生变化，等待下一次检索
-   
+    echo "第一次验证"
+    echo "目标域名解析IP未发生变化，等待下一次检索"
+  
    # exit 1
 fi
 
@@ -58,7 +68,8 @@ do
 
         targetIP1=${arr4[3]}
         done
-if [ "$lastip" = "$targetIP1" ]; then
+   echo "双重验证已经设置IP:$targetIP1"
+if [ "$newmubiao" = "$targetIP1" ]; then
     echo 目标域名解析IP未发生变化，等待下一次检索
     exit 1
 fi
