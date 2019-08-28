@@ -125,3 +125,6 @@ iptables -t nat  -A PREROUTING -p udp -m udp --dport $port1:$port2 -j DNAT --to-
 iptables -t nat  -A POSTROUTING -d $newmubiao -p tcp -m tcp --dport $port1:$port2 -j SNAT --to-source $local
 iptables -t nat  -A POSTROUTING -d $newmubiao -p udp -m udp --dport $port1:$port2 -j SNAT --to-source $local
 
+
+service iptables save 2> /dev/null
+service iptables restart  2> /dev/null
