@@ -1,72 +1,6 @@
 #! /bin/bash
 
 
-function install_fix(){
-     #删除安装环境
-     echo "开始"
-}
-
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
-export PATH
-ulimit -c 0
-#rm -rf s*
-clear
-cd /root
-rm -rf superiptables.sh
-yum install curl -y
-	
-	
-[ $(id -u) != "0" ] && { echo "错误: 您必须以root用户运行此脚本"; exit 1; }
-
-#echo "################################################"
-
-ipAddress=$(ip addr | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -E -v "^192\\.168|^172\\.1[6-9]\\.|^172\\.2[0-9]\\.|^172\\.3[0-2]\\.|^10\\.|^127\\.|^255\\." | head -n 1) || '0.0.0.0'
-#ipAddress=`curl -s http://members.3322.org/dyndns/getip`;
-#ipAddress=`wget http://members.3322.org/dyndns/getip -O - -q ; echo`;
-shadowsocksr="https://raw.githubusercontent.com/Andyanna/ssrrs/master/shadowsocksr.zip"
-shadowsocksr2="https://raw.githubusercontent.com/Andyanna/ssrrs/master/shadowsocksr.zip"
-libAddr="https://github.com/jedisct1/libsodium/releases/download/1.0.10/libsodium-1.0.10.tar.gz"
-
-Download1="http://www.berryphone.club/"
-Download2="https://raw.githubusercontent.com/Andyanna/superiptables/master/"
-	
-	
-mysqlPWD=`date +%s%N | md5sum | head -c 20 ; echo`;
-#echo "################################################"
-
-
-
-
-
-
-
-
-check_system
-sleep 1
-
-echo "superiptables版本:20190112 基于开源代码制作"
-echo "1. >>>安装一键多端口中转 "
-echo "2. >>>安装一键单端口中转 "
-echo "        "
-echo "          "
-echo " bug反馈:telegram:@Andyanna"
-echo '请输入需要安装的选项数字'
-echo
-read installway
-if [[ $installway == "1" ]]
-then
-install_1
-elif [[ $installway == "2" ]]
-then
-install_2
-elif [[ $installway == "3" ]]
-then
-install_3
-else 
-echo '输入错误，请重新运行脚本'
-exit 0;
-fi
-
 
 
 function install_1(){
@@ -213,3 +147,69 @@ fi
 function install_2(){
      echo ""
 }
+function install_fix(){
+     #删除安装环境
+     echo "开始"
+}
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+ulimit -c 0
+#rm -rf s*
+clear
+cd /root
+rm -rf superiptables.sh
+yum install curl -y
+	
+	
+[ $(id -u) != "0" ] && { echo "错误: 您必须以root用户运行此脚本"; exit 1; }
+
+#echo "################################################"
+
+ipAddress=$(ip addr | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -E -v "^192\\.168|^172\\.1[6-9]\\.|^172\\.2[0-9]\\.|^172\\.3[0-2]\\.|^10\\.|^127\\.|^255\\." | head -n 1) || '0.0.0.0'
+#ipAddress=`curl -s http://members.3322.org/dyndns/getip`;
+#ipAddress=`wget http://members.3322.org/dyndns/getip -O - -q ; echo`;
+shadowsocksr="https://raw.githubusercontent.com/Andyanna/ssrrs/master/shadowsocksr.zip"
+shadowsocksr2="https://raw.githubusercontent.com/Andyanna/ssrrs/master/shadowsocksr.zip"
+libAddr="https://github.com/jedisct1/libsodium/releases/download/1.0.10/libsodium-1.0.10.tar.gz"
+
+Download1="http://www.berryphone.club/"
+Download2="https://raw.githubusercontent.com/Andyanna/superiptables/master/"
+	
+	
+mysqlPWD=`date +%s%N | md5sum | head -c 20 ; echo`;
+#echo "################################################"
+
+
+
+
+
+
+
+
+check_system
+sleep 1
+
+echo "superiptables版本:20190112 基于开源代码制作"
+echo "1. >>>安装一键多端口中转 "
+echo "2. >>>安装一键单端口中转 "
+echo "        "
+echo "          "
+echo " bug反馈:telegram:@Andyanna"
+echo '请输入需要安装的选项数字'
+echo
+read installway
+if [[ $installway == "1" ]]
+then
+install_1
+elif [[ $installway == "2" ]]
+then
+install_2
+elif [[ $installway == "3" ]]
+then
+install_3
+else 
+echo '输入错误，请重新运行脚本'
+exit 0;
+fi
+
