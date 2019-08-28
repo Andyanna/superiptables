@@ -48,7 +48,7 @@ iptables --policy FORWARD ACCEPT
 lastip=$(cat /root/$tempFile 2> /dev/null)
 if [ "$lastip" = "$newmubiao" ]; then
     echo 目标域名解析IP未发生变化，等待下一次检索
-    exit 1
+   # exit 1
 fi
 
 echo 上一次查询ip: $lastip
