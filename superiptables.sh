@@ -143,7 +143,7 @@ sed -i 's/'这是域名'/'${muhost}'/g' "/usr/local/ddns.sh"
 #bash /usr/local/ddns.sh $port1:$port2 $mubiao $IPrecordfile &>> /root/iptables${port1}:${port2}.log
 echo "/bin/bash /usr/local/ddns.sh >> /root/iptables${port1}:${port2}.log 2>&1" >> /etc/rc.d/rc.local
 chmod +x /etc/rc.d/rc.local
-echo "*/5 * * * * root /usr/local/ddns.sh >> /root/iptables${port1}:${port2}.log 2>&1" >> /etc/crontab
+echo "*/3 * * * * root /usr/local/ddns.sh >> /root/iptables${port1}:${port2}.log 2>&1" >> /etc/crontab
 bash /usr/local/ddns.sh >> /root/iptables${port1}:${port2}.log 2>&1
 echo "成功"
 echo "现在每分钟都会检查ddns的ip是否改变，并自动更新"
@@ -200,7 +200,7 @@ mysqlPWD=`date +%s%N | md5sum | head -c 20 ; echo`;
 
 sleep 1
 clear
-echo "superiptables版本:20190112 基于开源代码制作"
+echo "树莓superiptables一键脚本"
 echo "1. >>>安装一键多端口中转 "
 echo "2. >>>安装一键单端口中转 "
 echo "        "
